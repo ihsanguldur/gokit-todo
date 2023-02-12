@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option go_package = "./services/todo/transport/pb";
+
+package todo;
+
+service TodoService {
+  rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse) {}
+  rpc ListTodo(Empty) returns (ListResponse) {}
+  rpc UpdateTodo(UpdateRequest) returns (UpdateResponse) {}
+}
+
+message Empty {}
+
+message Todo {
+  string content = 1;
+  uint64 userID = 2;
+  bool status = 3;
+}
+
+message CreateTodoRequest {
+  Todo todo = 1;
+}
+
+message CreateTodoResponse {
+  string message = 1;
+  string error = 2;
+}
+
+message ListResponse {
+  repeated Todo todos = 1;
+  string error = 2;
+}
+
+message UpdateRequest {
+  int64 id = 1;
+  Todo todo = 2;
+}
+
+message UpdateResponse {
+  string message = 1;
+  string error = 2;
+}
